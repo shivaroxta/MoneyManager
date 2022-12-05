@@ -1,0 +1,43 @@
+.money-list {
+  height: 20vh;
+  margin-right: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.list {
+  list-style-type: none;
+  border-radius: 10px;
+}
+.img {
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.list-1 {
+  background-color: #ecfccb;
+  height: 100px;
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  border: solid 2px #84cc16;
+}
+.list-2 {
+  background-color: #cffafe;
+  height: 100px;
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  margin-left: 60px;
+  border: solid 2px #06b6d4;
+}
+.list-3 {
+  background-color: #ede9fe;
+  height: 100px;
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  margin-left: 60px;
+  border: solid 2px #7c3aed;
+}
