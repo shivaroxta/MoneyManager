@@ -1,7 +1,9 @@
 // eslint-disable-next-line
 import React, {Component} from 'react'
+import {v4 as uuidv4} from 'uuid'
 import MoneyDetails from '../MoneyDetails'
 import TransactionItem from '../TransactionItem'
+
 import './index.css'
 
 // eslint-disable-next-line
@@ -34,6 +36,35 @@ class MoneyManager extends Component {
     this.setState({amountInput: event.target.value})
   }
 
+  onSubmitAddNewTransactions = event => {
+    event.preventDefault()
+    const {
+      balance,
+      income,
+      expenses,
+      // eslint-disable-next-line
+      titleInput,
+      // eslint-disable-next-line
+      amountInput,
+      // eslint-disable-next-line
+      historyList,
+    } = this.state
+    const newTransaction = {
+      id: uuidv4(),
+      title: titleInput,
+      amount: amountInput,
+    }
+    this.setState(prevState => ({
+      historyList: [...prevState.historyList, newTransaction],
+      titleInput: '',
+      amountInput: '',
+    }))
+  }
+
+  onChangeSelect = event => {
+    this.setState({})
+  }
+
   render() {
     const {
       balance,
@@ -61,44 +92,51 @@ class MoneyManager extends Component {
         <div className="bottom-container">
           <div className="transaction">
             <h1 className="transaction-heading">Add Transaction</h1>
-            <form className="form" onSubmit=(this.onSubmitAddNewTransactions)
-            <label htmlFor="title-input" className="label-element">
-              TITLE
-            </label>
-            <input
-              type="text"
-              id="title-input"
-              className="titleInput input"
-              placeholder="TITLE"
-              onChange={this.onChangeTitleInput}
-              value={titleInput}
-            />
-            <label htmlFor="amount-input" className="label-element">
-              AMOUNT
-            </label>
-            <input
-              type="text"
-              id="amount-input"
-              className="amountInput input"
-              placeholder="AMOUNT"
-              onChange={this.onChangeAmountInput}
-              value={amountInput}
-            />
-            <label className="label-element" htmlFor="active">
-              TYPE
-            </label>
-            <select id="active" className="select-element">
-              <option value="Active">Income</option>
-              <option value="Inactive">Expenses</option>
-            </select>
-            <button type="button" className="button">
-              Add
-            </button>
+            <form className="form" onSubmit={this.onSubmitAddNewTransactions}>
+              <label htmlFor="title-input" className="label-element">
+                TITLE
+              </label>
+              <input
+                type="text"
+                id="title-input"
+                className="titleInput input"
+                placeholder="TITLE"
+                onChange={this.onChangeTitleInput}
+                value={titleInput}
+              />
+              <label htmlFor="amount-input" className="label-element">
+                AMOUNT
+              </label>
+              <input
+                type="text"
+                id="amount-input"
+                className="amountInput input"
+                placeholder="AMOUNT"
+                onChange={this.onChangeAmountInput}
+                value={amountInput}
+              />
+              <label className="label-element" htmlFor="active">
+                TYPE
+              </label>
+              <select
+                id="active"
+                onChange={this.onChangeSelect}
+                className="select-element"
+              >
+                <option value="Active">Income</option>
+                <option value="Inactive">Expenses</option>
+              </select>
+              <button type="submit" className="button">
+                Add
+              </button>
+            </form>
           </div>
           <div className="history">
             <h1 className="history-heading">History</h1>
             <ul className="history-items">
-              <TransactionItem />
+              {historyList.map(eachItem => (
+                <TransactionItem id={eachItem.id} historyDetails={eachItem} />
+              ))}
             </ul>
           </div>
         </div>
